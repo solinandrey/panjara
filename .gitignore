@@ -1,0 +1,25 @@
+# Build output
+*.o
+*.obj
+*.exe
+*.dll
+*.lib
+
+# Temporary files
+*.tmp
+*.log
+*.pid
+*.swp
+
+# IDE configuration files
+*.idea
+*.iml
+*.classpath
+*.project
+
+# User-specific data
+*.user
+*.config
+*.settings
+
+node_modules

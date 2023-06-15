@@ -1,0 +1,22 @@
+{
+  "name": "panjara",
+  "version": "1.0.0",
+  "description": "telegram bot for ordering food",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solinandrey/panjara.git"
+  },
+  "author": "Andrey Solin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/solinandrey/panjara/issues"
+  },
+  "homepage": "https://github.com/solinandrey/panjara#readme",
+  "dependencies": {
+    "telegraf": "^4.12.2"
+  }
+}
