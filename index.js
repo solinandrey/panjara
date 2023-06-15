@@ -1,15 +1,15 @@
-const API_TOKEN = '6215862830:AAFhUMn8HH4-EKw6vU0D604Y7pg_8rP1stQ'
+const TelegramBot = require('node-telegram-bot-api');
 
-const bot = require("telegraf");
+const API_TOKEN = '6215862830:AAFhUMn8HH4-EKw6vU0D604Y7pg_8rP1stQ';
 
-const bot = new bot({
-  token: API_TOKEN,
+const {Telegraf} = require("telegraf");
+
+const bot = new Telegraf(API_TOKEN);
+
+bot.on("message", async (ctx) => {
+  // if (text === "/start") {
+    ctx.reply("Hello, world!");
+  // }
 });
 
-bot.on("message", async (chat_id, text) => {
-  if (text === "/start") {
-    bot.sendMessage(chat_id, "Hello, world!");
-  }
-});
-
-bot.start();
+bot.launch();
