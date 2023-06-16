@@ -1,37 +1,38 @@
+const { Telegraf } = require('telegraf');
 const express = require('express');
 const bodyParser = require('body-parser');
-const axios = require('axios');
 
 const app = express();
 app.use(bodyParser.json());
 
-app.post('/webhook', (req, res) => {
-  const { message } = req.body;
-  
-  if (message && message.text) {
-    const chatId = message.chat.id;
-    const text = message.text.toLowerCase();
-    
-    sendResponse(chatId, 'Привет!');
-  }
-  
+// Создаем экземпляр бота с указанием токена
+const bot = new Telegraf(process.env.API_TOKEN);
+
+// Обработчик команды /start
+bot.start((ctx) => {
+  ctx.reply('Привет!');
+});
+
+// Обработчик текстовых сообщений
+bot.on('text', (ctx) => {
+  const text = ctx.message.text.toLowerCase();
+    ctx.reply('Привет!');
+});
+
+// Настроим Express для обработки вебхука от Telegram
+app.post(`/webhook/${process.env.API_TOKEN}`, (req, res) => {
+  bot.handleUpdate(req.body);
   res.sendStatus(200);
 });
 
+// Запускаем Express сервер
 app.listen(process.env.PORT || 3000, () => {
-  console.log('Server is running');
+  console.log('Сервер запущен');
 });
 
-// Функция для отправки ответного сообщения
-function sendResponse(chatId, text) {
-  axios.post(`https://api.telegram.org/bot${process.env.API_TOKEN}/sendMessage`, {
-    chat_id: chatId,
-    text: text,
-  })
-  .then((response) => {
-    console.log('Message sent successfully');
-  })
-  .catch((error) => {
-    console.error('Error sending message:', error);
-  });
-}
+// Запускаем бота
+bot.launch().then(() => {
+  console.log('Бот успешно запущен');
+}).catch((error) => {
+  console.error('Ошибка при запуске бота:', error);
+});
