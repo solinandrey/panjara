@@ -1,15 +1,39 @@
-const TelegramBot = require('node-telegram-bot-api');
+const express = require('express');
+const bodyParser = require('body-parser');
+const axios = require('axios');
 
-const API_TOKEN = '6215862830:AAFhUMn8HH4-EKw6vU0D604Y7pg_8rP1stQ';
+const app = express();
+app.use(bodyParser.json());
 
-const {Telegraf} = require("telegraf");
-
-const bot = new Telegraf(API_TOKEN);
-
-bot.on("message", async (ctx) => {
-  // if (text === "/start") {
-    ctx.reply("Hello, world!");
-  // }
+app.post('/webhook', (req, res) => {
+  const { message } = req.body;
+  
+  if (message && message.text) {
+    const chatId = message.chat.id;
+    const text = message.text.toLowerCase();
+    
+    if (text === 'привет') {
+      sendResponse(chatId, 'Привет!');
+    }
+  }
+  
+  res.sendStatus(200);
 });
 
-bot.launch();
+app.listen(process.env.PORT || 3000, () => {
+  console.log('Server is running');
+});
+
+// Функция для отправки ответного сообщения
+function sendResponse(chatId, text) {
+  axios.post(`https://api.telegram.org/bot${process.env.API_TOKEN}/sendMessage`, {
+    chat_id: chatId,
+    text: text,
+  })
+  .then((response) => {
+    console.log('Message sent successfully');
+  })
+  .catch((error) => {
+    console.error('Error sending message:', error);
+  });
+}
