@@ -12,9 +12,7 @@ app.post('/webhook', (req, res) => {
     const chatId = message.chat.id;
     const text = message.text.toLowerCase();
     
-    if (text === 'привет') {
-      sendResponse(chatId, 'Привет!');
-    }
+    sendResponse(chatId, 'Привет!');
   }
   
   res.sendStatus(200);
