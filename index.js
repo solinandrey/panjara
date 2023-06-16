@@ -18,7 +18,7 @@ bot.start((ctx) => {
 // Обработчик текстовых сообщений
 bot.on(message('text'), (ctx) => {
   const text = ctx.message.text.toLowerCase();
-    ctx.reply('Привет!');
+    ctx.reply('Привет! я ненавижу телеграм');
 });
 
 // Настроим Express для обработки вебхука от Telegram
