@@ -1,0 +1,6 @@
+{
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/webhook", "dest": "/index.js" }
+  ]
+}
