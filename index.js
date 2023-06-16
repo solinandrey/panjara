@@ -20,7 +20,7 @@ bot.on('text', (ctx) => {
 });
 
 // Настроим Express для обработки вебхука от Telegram
-app.post(`/webhook/${process.env.API_TOKEN}`, (req, res) => {
+app.post(`/webhook`, (req, res) => {
   bot.handleUpdate(req.body);
   res.sendStatus(200);
 });
