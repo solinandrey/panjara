@@ -23,6 +23,7 @@ bot.on(message('text'), (ctx) => {
 
 // Настроим Express для обработки вебхука от Telegram
 app.post(`/webhook`, (req, res) => {
+  console.log('i got request on webhook', req);
   bot.handleUpdate(req.body);
   res.sendStatus(200);
 });
