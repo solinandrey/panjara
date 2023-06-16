@@ -1,4 +1,5 @@
 const { Telegraf } = require('telegraf');
+const { message } = require("telegraf/filters");
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -14,7 +15,7 @@ bot.start((ctx) => {
 });
 
 // Обработчик текстовых сообщений
-bot.on('text', (ctx) => {
+bot.on(message('text'), (ctx) => {
   const text = ctx.message.text.toLowerCase();
     ctx.reply('Привет!');
 });
