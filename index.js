@@ -4,22 +4,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const TeleBot = require('telebot');
-const bot = new TeleBot(process.env.API_TOKEN);
 require('dotenv').config()
+const bot = new TeleBot({token: process.env.API_TOKEN});
 
 const app = express();
 app.use(bodyParser.json());
 
 // Обработчик команды /start
-bot.start((ctx) => {
-  ctx.reply('Привет!');
-});
+// bot.start((ctx) => {
+//   ctx.reply('Привет!');
+// });
 
 // Обработчик текстовых сообщений
-bot.on('text', (ctx) => {
-  const text = ctx.message.text.toLowerCase();
-    ctx.reply.text('Привет! я ненавижу телеграм');
-});
+bot.on('text', (msg) => msg.reply.text(msg.text));
 
 // Настроим Express для обработки вебхука от Telegram
 app.post(`/webhook`, (req, res) => {
